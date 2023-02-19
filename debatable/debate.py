@@ -5,7 +5,7 @@ import time
 import re
 
 class Debate:
-    def __init__(self, first_debater_api, second_debater_api, topic):
+    def __init__(self, first_debater_api, second_debater_api, topic, tone):
         self.topic = topic
         self.first_debater_api = first_debater_api
         self.second_debater_api = second_debater_api
@@ -14,6 +14,7 @@ class Debate:
         self.scores = {"first_debater": 0, "second_debater": 0}
         self.winner = None
         self.debate_ready = False
+        self.tone = tone
 
         self.debate_setup()
 
@@ -81,10 +82,12 @@ class Debate:
         d2_data = d2_response.json()
         d2_opening_statement = d2_data.get('response')
 
-        #print("Ladies and Gentlemen it is now time for each side to give their opening statements. In this first part, each side will present their initial arguments and set the stage for the rest of the discussion. The goal is to introduce our perspectives and convince you, the audience, of our position on the topic at hand.")
         print()
         print()
-        print("Alright, listen up y'all. It's time to lay down the facts and make our case in the opening statements. You best believe we're gonna come out swingin' with some truth bombs and hard evidence.")
+        if self.tone == 'informal':
+            print("Alright, listen up y'all. It's time to lay down the facts and make our case in the opening statements. You best believe we're gonna come out swingin' with some truth bombs and hard evidence.")
+        else:
+            print("Ladies and Gentlemen it is now time for each side to give their opening statements. In this first part, each side will present their initial arguments and set the stage for the rest of the discussion. The goal is to introduce our perspectives and convince you, the audience, of our position on the topic at hand.")
 
         round_results = self.round_scoring(d1_opening_statement, d2_opening_statement)
         
@@ -104,8 +107,10 @@ class Debate:
 
         print()
         print()
-        #print("Thank you for the opening statements. Now, it's time for the cross-examination, where each side will have the opportunity to question the other about their arguments. The goal is to probe deeper into each other's claims and evidence, and to identify any weaknesses or gaps in the opposing argument.")
-        print("Now we're gonna get down and dirty, baby. It's time to grill these fools and expose their weak points during the cross examination. Ain't no dodging the tough questions today.")
+        if self.tone == 'informal':
+            print("Now we're gonna get down and dirty, baby. It's time to grill these fools and expose their weak points during the cross examination. Ain't no dodging the tough questions today.")
+        else:
+            print("Thank you for the opening statements. Now, it's time for the cross-examination, where each side will have the opportunity to question the other about their arguments. The goal is to probe deeper into each other's claims and evidence, and to identify any weaknesses or gaps in the opposing argument.")
 
         round_results = self.round_scoring(d1_opening_statement, d2_opening_statement)
         
@@ -125,8 +130,10 @@ class Debate:
 
         print()
         print()
-        #print("Thank you for the insightful cross-examination. In this part of the debate, each side will try to rebut the arguments of the other. The goal is to counter the opposing arguments with stronger evidence or to show that the opposing arguments are flawed in some way.")
-        print("Oh, so you wanna come at us with your weak sauce arguments? Ha! We ain't scared of your nonsense. We're gonna tear your case apart and leave you shakin' in your boots during the rebuttal part of this debate.")
+        if self.tone == 'informal':
+            print("Oh, so you wanna come at us with your weak sauce arguments? Ha! We ain't scared of your nonsense. We're gonna tear your case apart and leave you shakin' in your boots during the rebuttal part of this debate.")
+        else:
+            print("Thank you for the insightful cross-examination. In this part of the debate, each side will try to rebut the arguments of the other. The goal is to counter the opposing arguments with stronger evidence or to show that the opposing arguments are flawed in some way.")
 
         round_results = self.round_scoring(d1_opening_statement, d2_opening_statement)
 
@@ -143,10 +150,12 @@ class Debate:
         d2_data = d2_response.json()
         d2_opening_statement = d2_data.get('response')
 
-        #print("We're approaching the end of our debate, and it's time for the final focus. Each side will have one last chance to make a strong case for their position. The goal is to leave the audience with a lasting impression of our arguments and to make a final appeal to their reasoning and emotions.")
         print()
         print()
-        print("This is it, folks. The moment of truth. It's the final focus. We've laid out our case, rebutted their arguments, and now it's time to bring it home. We're gonna hit 'em with our best shot and leave 'em speechless.")
+        if self.tone == 'informal':
+            print("This is it, folks. The moment of truth. It's the final focus. We've laid out our case, rebutted their arguments, and now it's time to bring it home. We're gonna hit 'em with our best shot and leave 'em speechless.")
+        else:
+            print("We're approaching the end of our debate, and it's time for the final focus. Each side will have one last chance to make a strong case for their position. The goal is to leave the audience with a lasting impression of our arguments and to make a final appeal to their reasoning and emotions.")
 
         round_results = self.round_scoring(d1_opening_statement, d2_opening_statement)
 
@@ -163,10 +172,12 @@ class Debate:
         d2_data = d2_response.json()
         d2_opening_statement = d2_data.get('response')
 
-        #print("Thank you to both sides for a stimulating debate. In this final part, we will summarize our arguments and conclude our discussion. The goal is to provide closure to the debate and to help the audience come to a decision on the topic at hand.")
         print()
         print()
-        print("And there you have it, ladies and gents. The gloves are off, the dust has settled, and we're about to see who came out on top in the conclusion. Ain't no doubt in my mind who the real winner is here today.")
+        if self.tone == 'informal':
+            print("And there you have it, ladies and gents. The gloves are off, the dust has settled, and we're about to see who came out on top in the conclusion. Ain't no doubt in my mind who the real winner is here today.")
+        else:
+            print("Thank you to both sides for a stimulating debate. In this final part, we will summarize our arguments and conclude our discussion. The goal is to provide closure to the debate and to help the audience come to a decision on the topic at hand.")
 
         round_results = self.round_scoring(d1_opening_statement, d2_opening_statement)
 
